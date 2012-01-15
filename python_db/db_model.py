@@ -19,16 +19,14 @@ class Track(Document):
 	name = StringField(required = True, unique = True)
 
 
-
 class Sensor(EmbeddedDocument):
-	time = IntField(required= True) 
+	time = IntField(required= False) #tRUE
 
 class FloatSensor(Sensor):
-	value = FloatField(required = True)
+	value = DecimalField(required = True, default=0.0)
 
 class IntegerSensor(Sensor):
 	value = IntField(required = True, default = 0)
-	time = IntField(required = True)
 
 class Model(Document): 
 	meta={"collection" : "model",
@@ -44,6 +42,39 @@ class Model(Document):
 	gear = ListField(EmbeddedDocumentField(IntegerSensor), default = list)
 	speed = ListField(EmbeddedDocumentField(FloatSensor), default = list)
 	#position
+	
+	def add_data(self,data): #Speed,brakes,gas,clutch,gear
+		speed = FloatSensor()
+		brake = FloatSensor()
+		gas = FloatSensor()
+		clutch = FloatSensor()
+		gear = IntegerSensor()
+
+		speed.value = data[0]
+		self.speed.append(speed)
+		#self.speed.save()
+		
+		brake.value = data[1]
+		self.speed.append(speed)
+		#self.speed.save()
+
+		gas.value = data[2]
+		self.gas.append(gas)
+		#self.gas.save()
+
+		clutch.value = data[3]
+		self.clutch.append(clutch)
+		#self.clutch.save()
+		
+		gear.value = data[4]
+		self.gear.append(gear)
+
+		self.save()
+
+
+				
+
+	
 
 
 

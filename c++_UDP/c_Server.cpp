@@ -76,6 +76,7 @@ string message = convert(echoBuffer[0].vehSpeed * 3.63,
 			echoBuffer[0].throttle,
 			echoBuffer[0].clutch, 
 			echoBuffer[0].gearEngaged);
+
 cout<<message<<endl;;
 char* s = new char[message.size()];
  

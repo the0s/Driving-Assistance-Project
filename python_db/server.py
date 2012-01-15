@@ -1,6 +1,5 @@
 import socket
 
-
 class Server:
     def __init__(self,UDP_IP, UDP_PORT):
 	self.sock = socket.socket( socket.AF_INET, # Internet

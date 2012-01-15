@@ -1,7 +1,6 @@
 from db_model import * 
 from server import *
 from db_save import *
-import struct
 
 if __name__ == "__main__":
 	UDP_IP = "192.168.1.98"
@@ -17,14 +16,16 @@ if __name__ == "__main__":
 	user.save()	
 	'''
 	user = User.objects(email = "email@lol.com").get()
-	model = Model()
-	model.driver = user
-	model.save()
-		
+	model = Model.objects(driver = user).get()
+	#model = Model()
+	#model.driver = user
+	#model.save()
+	
 	
 	while True:
 		data, addr = sock.receive()
 		print "Received Message From: ", addr[0],":",addr[1]
 		print data
 		print len(data)
-    		SaveDB()._saveModel(data)
+		SaveDB()._saveModel(data, model)
+
