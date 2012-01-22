@@ -25,9 +25,9 @@
 
 const int ECHOMAX = 4096;     // Longest string to echo
 
-string convert(float speed, float brake, float gas, float clutch, int gear){
+string convert(float speed, float brake, float gas, float clutch, int gear, int distance, int time){
 	stringstream ss (stringstream::in | stringstream::out);
-	ss<<speed<<";"<<brake<<";"<<gas<<";"<<clutch<<";"<<gear;
+	ss<<speed<<";"<<brake<<";"<<gas<<";"<<clutch<<";"<<gear<<";"<<distance<<";"<<time;
 	return ss.str();
 }
 
@@ -37,9 +37,9 @@ int main(int argc, char *argv[]) {
     cerr << "Usage: " << argv[0] << " <<Game Port> " << " <Destination Port> " <<  endl;
     exit(1);
   }
-
-  unsigned short echoServPort = atoi(argv[1]);     // First arg:  local port
-  unsigned short destPort = atoi(argv[2]); 	
+  int no = 0;
+  unsigned short echoServPort = atoi(argv[2]);     // First arg:  local port
+  unsigned short destPort = 7011;//atoi(argv[2]); 	
 
   try {
     UDPSocket sock(echoServPort);                
@@ -70,12 +70,14 @@ if ((echoBuffer[0].rpm != 0) && (echoBuffer[0].engineState != 0))
     cout << "Pos x "<<echoBuffer[0].pos.x<< "y "<<echoBuffer[0].pos.y<< " z "<< echoBuffer[0].pos.z<<endl;
     cout <<echoBuffer[0].steering<< "  "<<echoBuffer[0].throttle<<"  "<<echoBuffer[0].brakes<<"  "<<echoBuffer[0].clutch<<endl;
     cout<<endl;
-}
+
 string message = convert(echoBuffer[0].vehSpeed * 3.63, 
 			echoBuffer[0].brakes, 
 			echoBuffer[0].throttle,
 			echoBuffer[0].clutch, 
-			echoBuffer[0].gearEngaged);
+			echoBuffer[0].gearEngaged,
+			echoBuffer[0].lapDistance,
+			echoBuffer[0].time);
 
 cout<<message<<endl;;
 char* s = new char[message.size()];
@@ -90,7 +92,9 @@ for (int i=0; i<message.size(); i++){
 	msg[0] = "hello world";			
       sock.sendTo(s, message.size(), destAddr, destPort);	
 	cout<<"SEND TO: " << destAddr<<":"<<destPort<<endl;
+	cout<<++no<<endl;	
     }
+}
   } catch (SocketException &e) {
     cerr << e.what() << endl;
     exit(1);
