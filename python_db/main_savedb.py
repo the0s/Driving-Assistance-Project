@@ -35,7 +35,7 @@ if __name__ == "__main__":
 		i+=1
 		print data
 		print len(data)
-		data = data.split(';')
+		#data = data.split(';')
 		saveDB._saveModel(data, model)
 
 

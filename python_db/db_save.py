@@ -8,6 +8,7 @@ class SaveDB:
 		self.tools = Tools()
 
 	def _saveModel(self,data,model):
+		data = data.split(';')
 		check = self.tools._inTrack(data)
 		model.add_data(data, check)
 
