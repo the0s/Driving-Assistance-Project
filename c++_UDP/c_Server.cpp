@@ -25,9 +25,9 @@
 
 const int ECHOMAX = 4096;     // Longest string to echo
 
-string convert(float speed, float brake, float gas, float clutch, int gear, int distance, int time){
+string convert(float speed, float brake, float gas, float clutch, int gear, int distance, int time, float x, float y, float z){
 	stringstream ss (stringstream::in | stringstream::out);
-	ss<<speed<<";"<<brake<<";"<<gas<<";"<<clutch<<";"<<gear<<";"<<distance<<";"<<time;
+	ss<<speed<<";"<<brake<<";"<<gas<<";"<<clutch<<";"<<gear<<";"<<distance<<";"<<time<<";"<<x<<";"<<y<<";"<<z;
 	return ss.str();
 }
 
@@ -68,7 +68,9 @@ if ((echoBuffer[0].rpm != 0) && (echoBuffer[0].engineState != 0))
     cout << "car " << echoBuffer[0].carName <<endl;
     cout << "GFORCE lat"<<echoBuffer[0].gforceLat<< "long"<<echoBuffer[0].gforceLon<<endl;
     cout << "Pos x "<<echoBuffer[0].pos.x<< "y "<<echoBuffer[0].pos.y<< " z "<< echoBuffer[0].pos.z<<endl;
+ cout<<"Test"<<endl;
     cout <<echoBuffer[0].steering<< "  "<<echoBuffer[0].throttle<<"  "<<echoBuffer[0].brakes<<"  "<<echoBuffer[0].clutch<<endl;
+   cout << "Acc x "<<echoBuffer[0].acc.x<< "y "<<echoBuffer[0].acc.y<< " z "<< echoBuffer[0].acc.z<<endl;
     cout<<endl;
 
 string message = convert(echoBuffer[0].vehSpeed * 3.63, 
@@ -77,7 +79,10 @@ string message = convert(echoBuffer[0].vehSpeed * 3.63,
 			echoBuffer[0].clutch, 
 			echoBuffer[0].gearEngaged,
 			echoBuffer[0].lapDistance,
-			echoBuffer[0].time);
+			echoBuffer[0].time,
+			echoBuffer[0].pos.x,
+			echoBuffer[0].pos.y,
+			echoBuffer[0].pos.z);
 
 cout<<message<<endl;;
 char* s = new char[message.size()];

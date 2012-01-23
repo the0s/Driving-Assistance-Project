@@ -5,6 +5,10 @@ import db_connect
 import math
 import pylab
 
+import matplotlib as mpl
+from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
+import matplotlib.pyplot as plt
 #x_list = pylab.arange(0.0, 5.0, 0.01)
 
 pylab.figure(1)
@@ -75,6 +79,36 @@ y_gear = data
 pylab.xlabel("time")
 pylab.ylabel("intrack")
 pylab.plot(y_gear, 'b')
+
+
+
+
+
+mpl.rcParams['legend.fontsize'] = 10
+
+fig = plt.figure()
+ax = Axes3D(fig) 
+
+datax =[]
+datay = []
+dataz = []
+for s in model.position:
+	x=  float (s.x)
+	y = float (s.y)
+	z = float (s.z)
+	datax.append(x)
+	datay.append(y)
+	dataz.append(z)
+
+z = dataz
+x = datax
+y = datay
+
+ax.plot(x, y, z, label='distance')
+ax.legend()
+
+plt.show()
+
 
 
 pylab.show()

@@ -14,7 +14,8 @@ class User(Document):
 	gender = StringField(required = False, default = "u")
 
 
-#class Car(Document):
+class Car(Document):
+	name = StringField(required = True, unique = True)
 
 class Track(Document):
 	name = StringField(required = True, unique = True)
@@ -32,6 +33,11 @@ class IntegerSensor(Sensor):
 class BooleanSensor(Sensor):
 	value = BooleanField(required = True, default = 0) #SASTO GMT SHISTON
 
+class PositionSensor(Sensor):
+	x = DecimalField(required = True, default=0.0)
+	y = DecimalField(required = True, default=0.0)
+	z = DecimalField(required = True, default=0.0)
+
 class Model(Document): 
 	meta={"collection" : "model",
 	      "indexes":[
@@ -39,6 +45,7 @@ class Model(Document):
 			]}
 	driver = ReferenceField(User)
 	track = ReferenceField(Track)
+	car = ReferenceField(Car)
 	created = DateTimeField(required = True, default = datetime.datetime.utcnow)
 	gas = ListField(EmbeddedDocumentField(FloatSensor), default = list)
 	brake = ListField(EmbeddedDocumentField(FloatSensor), default = list)
@@ -47,9 +54,9 @@ class Model(Document):
 	speed = ListField(EmbeddedDocumentField(FloatSensor), default = list)
 	intrack = ListField(EmbeddedDocumentField(IntegerSensor), default = list)
 	distance = ListField(EmbeddedDocumentField(FloatSensor), default = list)
-	#position
+	position = ListField(EmbeddedDocumentField(PositionSensor),default = list)
 	
-	def add_data(self,data,in_track): #Speed,brakes,gas,clutch,gear,distance,time
+	def add_data(self,data,in_track): #Speed,brakes,gas,clutch,gear,distance,time, x, y ,z
 		speed = FloatSensor()
 		brake = FloatSensor()
 		gas = FloatSensor()
@@ -57,6 +64,7 @@ class Model(Document):
 		gear = IntegerSensor()
 		intrack = IntegerSensor()#tzetouto
 		distance = FloatSensor()
+		position = PositionSensor() #tzetouto
 
 		time = data[6]
 
@@ -86,7 +94,13 @@ class Model(Document):
 		
 		distance.value= data[5]
 		distance.time = time
-		self.distance.append(distance)	
+		self.distance.append(distance)
+
+		position.time = time
+		position.x = data[7]
+		position.y = data[8]
+		position.z = data[9]
+		self.position.append(position)
 
 		self.save()
 
