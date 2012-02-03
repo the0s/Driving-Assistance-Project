@@ -9,6 +9,7 @@ import matplotlib as mpl
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt2
 #x_list = pylab.arange(0.0, 5.0, 0.01)
 
 pylab.figure(1)
@@ -80,6 +81,16 @@ pylab.xlabel("time")
 pylab.ylabel("intrack")
 pylab.plot(y_gear, 'b')
 
+data =[]
+for s in model.steering:
+	x=  float (s.value)
+	data.append(x)
+pylab.subplot(337)
+y_gear = data
+pylab.xlabel("time")
+pylab.ylabel("steering")
+pylab.plot(y_gear, 'b')
+
 
 
 
@@ -87,6 +98,7 @@ pylab.plot(y_gear, 'b')
 mpl.rcParams['legend.fontsize'] = 10
 
 fig = plt.figure()
+plt.subplot(121)
 ax = Axes3D(fig) 
 
 datax =[]
@@ -110,5 +122,32 @@ ax.legend()
 plt.show()
 
 
+'''
 
+mpl.rcParams['legend.fontsize'] = 10
+
+fig1 = plt2.figure()
+ax1 = Axes3D(fig1) 
+
+datax =[]
+datay = []
+dataz = []
+for s in model.acceleration:
+	x=  float (s.x)
+	y = float (s.y)
+	z = float (s.z)
+	datax.append(x)
+	datay.append(y)
+	dataz.append(z)
+
+z = dataz
+x = datax
+y = datay
+
+ax1.plot(x, y, z, label='acceleration')
+ax1.legend()
+
+plt2.show()
+
+'''	
 pylab.show()
