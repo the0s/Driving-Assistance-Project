@@ -1,20 +1,6 @@
 /*
- *   C++ sockets on Unix and Windows
- *   Copyright (C) 2002
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program; if not, write to the Free Software
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+* Author: Theo
+* Date: 10/01/2012
  */
 
 #include "PracticalSocket.h" // For UDPSocket and SocketException
@@ -42,9 +28,7 @@ int main(int argc, char *argv[]) {
   unsigned short destPort = 7011;//atoi(argv[2]); 	
 
   try {
-    UDPSocket sock(echoServPort);                
-  
-	
+    UDPSocket sock(echoServPort);                	
     //int echoBuffer[ECHOMAX];         // Buffer for echo string
     RDashData echoBuffer[ECHOMAX];
     int recvMsgSize;                  // Size of received message
@@ -68,10 +52,10 @@ if ((echoBuffer[0].rpm != 0) && (echoBuffer[0].engineState != 0))
     cout << "car " << echoBuffer[0].carName <<endl;
     cout << "GFORCE lat"<<echoBuffer[0].gforceLat<< "long"<<echoBuffer[0].gforceLon<<endl;
     cout << "Pos x "<<echoBuffer[0].pos.x<< "y "<<echoBuffer[0].pos.y<< " z "<< echoBuffer[0].pos.z<<endl;
- cout<<"Test"<<endl;
+    cout<<"Test"<<endl;
     cout <<echoBuffer[0].steering<< "  "<<echoBuffer[0].throttle<<"  "<<echoBuffer[0].brakes<<"  "<<echoBuffer[0].clutch<<endl;
-   cout << "Acc x "<<echoBuffer[0].acc.x<< "y "<<echoBuffer[0].acc.y<< " z "<< echoBuffer[0].acc.z<<endl;
-   cout<<"steeritng "<<echoBuffer[0].steering<<endl;
+    cout << "Acc x "<<echoBuffer[0].acc.x<< "y "<<echoBuffer[0].acc.y<< " z "<< echoBuffer[0].acc.z<<endl;
+    cout<<"steeritng "<<echoBuffer[0].steering<<endl;
     cout<<endl;
 
 string message = convert(echoBuffer[0].vehSpeed * 3.63, 
@@ -97,10 +81,8 @@ for (int i=0; i<message.size(); i++){
 }
 
 
- 	string destAddr= "192.168.1.98";
-	string msg[1];
-	msg[0] = "hello world";			
-      sock.sendTo(s, message.size(), destAddr, destPort);	
+ 	string destAddr= "192.168.1.98";	
+        sock.sendTo(s, message.size(), destAddr, destPort);	
 	cout<<"SEND TO: " << destAddr<<":"<<destPort<<endl;
 	cout<<++no<<endl;	
     }
@@ -109,7 +91,6 @@ for (int i=0; i<message.size(); i++){
     cerr << e.what() << endl;
     exit(1);
   }
-  // NOT REACHED
   return 0;
 }
 

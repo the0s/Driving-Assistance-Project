@@ -17,15 +17,18 @@ if __name__ == "__main__":
 	client = RabbitmqClient()
 
 	while True:
-		#data structure = (Speed;brakes;gas;clutch;gear;distance;time)
-		data, addr = sock.receive()
-		if i == 1 :
-			print "Received Message From: ", addr[0],":",addr[1]
-		print i
-		i+=1
-		#print data
-		#print len(data)
-		client.send(data)
+		try:
+			#data structure = (Speed;brakes;gas;clutch;gear;distance;time)
+			data, addr = sock.receive()
+			if i == 1 :
+				print "Received Message From: ", addr[0],":",addr[1]
+			print i
+			i+=1
+			#print data
+			#print len(data)
+			client.send(data)
+ 		except (KeyboardInterrupt, SystemExit):
+        		raise
 		
 		
 

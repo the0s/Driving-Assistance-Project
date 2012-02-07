@@ -27,16 +27,39 @@ class Sensor(EmbeddedDocument):
 class FloatSensor(Sensor):
 	value = DecimalField(required = True, default=0.0) #TZE TOUTO
 
+	def add(self, time, value):
+		self.time = time
+		self.value = value
+		return self
+		
+
 class IntegerSensor(Sensor):
 	value = IntField(required = True, default = 0)
+	def add(self, time, value):
+		self.time = time
+		self.value = value
+		return self
+
 
 class BooleanSensor(Sensor):
 	value = BooleanField(required = True, default = 0) #SASTO GMT SHISTON
+	def add(self, time, value):
+		self.time = time
+		self.value = value
+		return self
+
 
 class Position3DSensor(Sensor):
 	x = DecimalField(required = True, default=0.0)
 	y = DecimalField(required = True, default=0.0)
 	z = DecimalField(required = True, default=0.0)
+	def add(self, time, x,y,z):
+		self.time = time
+		self.x = x
+		self.y = y
+		self.z = z
+		return self
+
 
 class Model(Document): 
 	meta={"collection" : "Models",
@@ -59,6 +82,22 @@ class Model(Document):
 	acceleration = ListField(EmbeddedDocumentField(Position3DSensor),default = list)
 	
 	def add_data(self,data,in_track): #Speed,brakes,gas,clutch,gear,distance,time, x, y ,z
+	
+		time = data[6]
+		self.speed.append(FloatSensor().add(time, data[0]))
+		self.brake.append(FloatSensor().add(time, data[1]))
+		self.gas.append(FloatSensor().add(time, data[2]))
+		self.clutch.append(FloatSensor().add(time, data[3]))
+		self.gear.append(IntegerSensor().add(time, data[4]))
+		self.intrack.append(IntegerSensor().add(time, in_track))	
+		self.distance.append(FloatSensor().add(time, data[5]))
+		self.position.append(Position3DSensor().add(time,data[7],data[8],data[9]))
+		self.acceleration.append(Position3DSensor().add(time,data[10],data[11],data[12]))
+		self.steering.append(FloatSensor().add(time, data[13]))
+		self.save()	
+	
+	'''
+	def add_data(self,data,in_track): #Speed,brakes,gas,clutch,gear,distance,time, x, y ,z, steering
 		speed = FloatSensor()
 		brake = FloatSensor()
 		steering = FloatSensor()
@@ -112,15 +151,58 @@ class Model(Document):
 		acc3d.z = data[12]
 		self.acceleration.append(acc3d)
 
-		steering.value = data[4]
+		steering.value = data[13]
 		steering.time = time
 		self.steering.append(steering)
 
 		self.save()
+	'''
 
+
+
+	
+class Data(EmbeddedDocument):
+	created = DateTimeField(required = True, default = datetime.datetime.utcnow)
+	steering = ListField(DecimalField, default = list)
+	gas = ListField(DecimalField, default = list)
+	brake = ListField(DecimalField, default = list)
+	clutch = ListField(DecimalField, default = list)
+	gear = ListField(IntField, default = list)
+	speed = ListField(DecimalField, default = list)
+
+	intrack = ListField(IntField, default = list)
+	distance = ListField(IntField, default = list)
+	position = ListField(EmbeddedDocumentField(Position3DSensor),default = list)
+	acceleration = ListField(EmbeddedDocumentField(Position3DSensor),default = list)
+
+	'''
+	def add(self, data):
+		self.steering = data.steering
+		self.gas = data.gas
+		self.brake = data.brake
+		self.clutch = data.clutch
+		self.gear = data.gear
+		self.speed = data.speed
+
+		self.intrack = data.intrack	
+		self.distance = data.distance
+		self.position = data.position
+		self.acceleration = data.acceleration
+		return self
+	'''	
 
 				
+class TrainingData(Document):
+	meta={"collection" : "TrainingModel",
+	      "indexes":[
+			"driver"
+			]}
+	driver = ReferenceField(User, unique = True)
+	data = ListField(EmbeddedDocumentField(Data), default = list)	
 
+	def add(self, block):
+		self.data.append(block)
+		self.data.save()
 	
 
 
