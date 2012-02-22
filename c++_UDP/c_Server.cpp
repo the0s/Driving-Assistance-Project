@@ -81,7 +81,7 @@ for (int i=0; i<message.size(); i++){
 }
 
 
- 	string destAddr= "192.168.1.98";	
+ 	string destAddr= "192.168.1.69";	
         sock.sendTo(s, message.size(), destAddr, destPort);	
 	cout<<"SEND TO: " << destAddr<<":"<<destPort<<endl;
 	cout<<++no<<endl;	

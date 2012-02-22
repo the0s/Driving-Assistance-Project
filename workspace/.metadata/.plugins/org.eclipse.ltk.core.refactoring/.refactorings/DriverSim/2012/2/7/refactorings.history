@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;DriverSim/file_db/file_db&apos; to &apos;file_db.py&apos;" description="Rename resource &apos;file_db&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="file_db/file_db" name="file_db.py" stamp="1329605531332" updateReferences="true"/>
+</session>

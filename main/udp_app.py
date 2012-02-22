@@ -1,11 +1,13 @@
 import sys 
 sys.path.append("/home/the0project/Desktop/ProjectSimulator/python_db")
+sys.path.append("C:\Users\The0s\Desktop\Project Files\Project\python_db")
 from db_model import * 
 from server import *
 from UDPtoRabbitmq import *
 
 if __name__ == "__main__":
-	UDP_IP = "192.168.1.98"
+	#UDP_IP = "192.168.1.98"
+	UDP_IP = "192.168.1.69"
 	UDP_PORT= 7011
 	sock = Server(UDP_IP, UDP_PORT)
 

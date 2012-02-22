@@ -1,5 +1,6 @@
 import sys 
 sys.path.append("/home/the0project/Desktop/ProjectSimulator/python_db")
+sys.path.append("C:\Users\The0s\Desktop\Project Files\Project\python_db")
 from db_model import * 
 from db_connect import *
 
