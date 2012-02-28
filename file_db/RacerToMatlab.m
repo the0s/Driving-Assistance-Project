@@ -3,7 +3,7 @@
 %22/02/2012
 %Text file data:Speed,brakes,gas,clutch,gear,distance,time, x, y ,z, x-acc, y-acc,z-acc,steering
 
-function [check, speed, brakes,gas,clutch,gear,distance,time, position3d, acceleration3d,steering] = RacerToMatlab(filename)
+function [A,check, speed, brakes,gas,clutch,gear,distance,time, position3d, acceleration3d,steering] = RacerToMatlab(filename)
     fid = fopen(filename);
     A = fscanf(fid,'%g %g %g %g %g %g %g %g %g %g %g %g %g %g %g',[15 inf] );
     fclose(fid);
