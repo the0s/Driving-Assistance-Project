@@ -26,37 +26,33 @@ function [A,check, speed, brakes,gas,clutch,gear,lapdistance,time, position3d, a
  
     %PLOTTING
     figure
-    subplot(3,3,1);
+    subplot(3,4,1);
     plot(speed);
     title('Speed');
     
-    subplot(3,3,2);
+    subplot(3,4,2);
     plot(brakes);
     title('Brake');
     
-    subplot(3,3,3);
+    subplot(3,4,3);
     plot(gas);
     title('Gas')
     
-    subplot(3,3,4);   
+    subplot(3,4,4);   
     plot(clutch);
     title('Clutch')
     
-    subplot(3,3,5);
+    subplot(3,4,5);
     plot(gear);
     title('Gear')
     
-    subplot(3,3,6);    
+    subplot(3,4,6);    
     plot(lapdistance);
     title('Distance')
    
-    subplot(3,3,7);    
+    subplot(3,4,7);    
     plot(check);
     title('In-Route')
-    
-    subplot(3,3,7);    
-    plot(steering);
-    title('Streering')
     
     %other
     figure
@@ -65,19 +61,19 @@ function [A,check, speed, brakes,gas,clutch,gear,lapdistance,time, position3d, a
     plot3(position3d(1,:),position3d(2,:),position3d(3,:))
     title('Position3d')
     
-    subplot(2,3,2);    
+    subplot(3,4,9);    
     plot3(acceleration3d(1,:),acceleration3d(2,:),acceleration3d(3,:))
     title('Acceleration3d')
     
-    subplot(2,3,3);    
+    subplot(3,4,10);    
     plot(gForceLat);
     title('Gforce lattitude')
     
-    subplot(2,3,4);    
+    subplot(3,4,11);    
     plot(gForceLong);
     title('Gforce Longitude')
     
-    subplot(2,3,5);    
+    subplot(3,4,12);    
     plot3(gForceLat,gForceLong,time)
     title('GForce')
     
@@ -103,12 +99,7 @@ function [A,check, speed, brakes,gas,clutch,gear,lapdistance,time, position3d, a
     title('Gear')
     
     subplot(2,3,5);
-    g= 0:0.1:450
-    hist(abs(steering),g);
-    title('Steering')
-    
-    subplot(2,3,6);   
     hist(handbrake,y);
-    title('Handbrake') 
+    title('Handbrake')
     
     
