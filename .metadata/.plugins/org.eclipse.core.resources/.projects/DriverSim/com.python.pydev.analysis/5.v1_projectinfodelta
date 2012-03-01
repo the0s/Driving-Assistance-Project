@@ -1,0 +1,15 @@
+INSTUPrabbitmqToText
+C:\Users\The0s\workspace\DriverSim\file_db\rabbitmqToText.py
+INFOS:&&1|1|2|0&&2|3|2|1&&3|4|2|5&&3|6|2|5&&3|7|2|5&&3|8|2|5&&3|9|2|5&&2|10|2|1&&2|11|2|1&&2|12|2|1
+queue=4
+connection=6
+rabbitmqToText=2
+i=8
+__init__=3
+file=9
+RabbitmqServer=1
+saveData=12
+callback=10
+RabbitmqServer.__init__=5
+channel=7
+receive=11
